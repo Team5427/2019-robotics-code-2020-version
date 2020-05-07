@@ -8,7 +8,7 @@
 package org.usfirst.frc.team5427.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import com.kauailabs.navx.frc.AHRS;
+// import com.kauailabs.navx.frc.AHRS;
 
 import org.usfirst.frc.team5427.robot.commands.auto.MoveClimberLegAuto;
 
@@ -90,7 +90,7 @@ public class Robot extends TimedRobot
     public static AnalogPotentiometer wristPot;
     public static AnalogPotentiometer armPot;
 
-    public static AHRS ahrs;
+    // public static AHRS ahrs;
 
 
     public static Ultrasonic ultra;
@@ -160,7 +160,7 @@ public class Robot extends TimedRobot
         intakeBottomMotor = new WPI_VictorSPX(Config.INTAKE_BOTTOM_MOTOR);
         intake = new Intake(intakeTopMotor, intakeBottomMotor);
 
-        ahrs = new AHRS(SPI.Port.kMXP);
+        // ahrs = new AHRS(SPI.Port.kMXP);
 
         ultra = new Ultrasonic(Config.ULTRA_PORT2, Config.ULTRA_PORT1);
         ultra.setAutomaticMode(true);
@@ -237,7 +237,7 @@ public class Robot extends TimedRobot
 
 
 
-        ahrs.reset();
+        // ahrs.reset();
 
         oi = new OI();
     }
@@ -254,8 +254,8 @@ public class Robot extends TimedRobot
         encRightPrev = encRight.getDistance();
 
         double distance = (encLeftDist + encRightDist)/2;
-        robotX += Math.cos(Math.toRadians(ahrs.getYaw())) * distance;
-        robotY += Math.sin(Math.toRadians(ahrs.getYaw())) * distance;
+        // robotX += Math.cos(Math.toRadians(ahrs.getYaw())) * distance;
+        // robotY += Math.sin(Math.toRadians(ahrs.getYaw())) * distance;
 
         NetworkTable net = NetworkTable.getTable("ChickenVision");
         /*if(net!=null) {
@@ -281,10 +281,10 @@ public class Robot extends TimedRobot
 
         SmartDashboard.putNumber("wrist pot wpi angle", wristPot.get());
 
-        SmartDashboard.putNumber("ahrs yaw", ahrs.getYaw());
+        // SmartDashboard.putNumber("ahrs yaw", ahrs.getYaw());
         
-        SmartDashboard.putNumber("ahrs velocity", ahrs.getVelocityX());
-        SmartDashboard.putNumber("ahrs accel", ahrs.getRawAccelX());
+        // SmartDashboard.putNumber("ahrs velocity", ahrs.getVelocityX());
+        // SmartDashboard.putNumber("ahrs accel", ahrs.getRawAccelX());
 
         SmartDashboard.putNumber("robotX", robotX);
         SmartDashboard.putNumber("robotY", robotY);
