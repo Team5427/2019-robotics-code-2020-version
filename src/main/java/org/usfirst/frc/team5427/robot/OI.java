@@ -24,37 +24,88 @@ import edu.wpi.first.wpilibj.buttons.POVButton;
  */
 public class OI
 {
-	public Joystick joy1;
-	public Button solenoidActivate;
-	public Button solenoidHatchActivate;
 
+	/**
+	 * The joystick instance. 
+	 */
+	private Joystick joy1;
 
-	Button intakeOut;
-	Button intakeIn;
-	Button armDown;
-	Button climberArmDown;
-	Button armUp;
-	Button climberArmUp;
-	Button wristUp;
-	Button wristDown;
-	// Button travel;
-	Button lowlowgear;
-	Button hatchShift;
+	/**
+	 * The button for the gear shifter. 
+	 */
+	private Button solenoidActivate;
 
-	Button climberLegUp, climberLegDown;
+	/**
+	 * The button for the hatch. 
+	 */
+	private Button solenoidHatchActivate;
 
-	Button solenoidClimb;
+	/**
+	 * The button for delivering cargo. 
+	 */
+	private Button intakeOut;
 
-	// Button climberWheelForward, climberWheelBackward;
+	/**
+	 * The button for intaking cargo. 
+	 */
+	private Button intakeIn;
 
-	Button gearShift;
+	/**
+	 * The button for moving the arm down. 
+	 */
+	private Button armDown;
 
-	POVButton climberForward, climberBackward;
+	/**
+	 * The button for moving the climber arm down. 
+	 */
+	private Button climberArmDown;
+
+	/**
+	 * The button for moving the arm up. 
+	 */
+	private Button armUp;
+
+	/**
+	 * The button for moving the climber arm up. 
+	 */
+	private Button climberArmUp;
+
+	/**
+	 * The button for moving the wrist up. 
+	 */
+	private Button wristUp;
+
+	/**
+	 * The button for moving the wrist down. 
+	 */
+	private Button wristDown;
+
+	/**
+	 * The button for toggling low-low gear. 
+	 */
+	private Button lowlowgear;
+
+	/**
+	 * The button for toggling the climber pistons. 
+	 */
+	private Button solenoidClimb;
+
+	/**
+	 * The POV button for moving the climber forward. 
+	 */
+	private POVButton climberForward;
+	
+	/**
+	 * The POV button for moving the climber backward. 
+	 */
+	private POVButton climberBackward;
 
 	public OI()
 	{
+		//initializes joystick. 
 		joy1 = new Joystick(Config.JOYSTICK_PORT);
 
+		//initializes buttons. 
 		intakeOut = new JoystickButton(joy1, Config.BUTTON_INTAKE_OUT);
 		intakeIn = new JoystickButton(joy1, Config.BUTTON_INTAKE_IN);
 		armDown = new JoystickButton(joy1, Config.BUTTON_ARM_DOWN);
@@ -64,40 +115,27 @@ public class OI
 		wristUp = new JoystickButton(joy1, Config.BUTTON_WRIST_UP);
 		wristDown = new JoystickButton(joy1, Config.BUTTON_WRIST_DOWN);
 		solenoidActivate = new JoystickButton(joy1, Config.PCM_JOYSTICK_PORT);
-		// travel = new JoystickButton(joy1, Config.BUTTON_TRAVEL);
 		lowlowgear = new JoystickButton(joy1, Config.BUTTON_LOWLOWGEAR);
-		// climberLegDown = new JoystickButton(joy1, Config.BUTTON_CLIMBER_LEG_DOWN);
-		// climberLegUp = new JoystickButton(joy1, Config.BUTTON_CLIMBER_LEG_UP);
 		solenoidHatchActivate = new JoystickButton(joy1,Config.BUTTON_PNEUMATIC_ACTIVATE);
 		solenoidClimb = new JoystickButton(joy1, Config.SOLENOID_CLIMB_BUTTON);
-
 		climberForward = new POVButton(joy1, 0);
 		climberBackward = new POVButton(joy1, 180);
-		// climberWheelForward = new JoystickButton(joy1, Config.BUTTON_CLIMBER_WHEEL_FORWARD);
-		// climberWheelBackward = new JoystickButton(joy1, Config.BUTTON_CLIMBER_WHEEL_BACKWARD);
 
+		//binds buttons to commands. 
 		intakeOut.whileHeld(new MoveIntake(Config.INTAKE_SPEED_OUT));
 		intakeIn.whileHeld(new MoveIntake(Config.INTAKE_SPEED_IN));
 		climberArmDown.whenPressed(new MoveClimberArm(Config.CLIMBER_ARM_SPEED_DOWN));
 		climberArmUp.whenPressed(new MoveClimberArm(Config.CLIMBER_ARM_SPEED_UP));
-		// climberLegDown.whenPressed(new MoveClimberLeg(Config.CLIMBER_LEG_SPEED_DOWN));
-		// climberLegUp.whenPressed(new MoveClimberLeg(Config.CLIMBER_LEG_SPEED_UP));
 		armDown.whileHeld(new RotateArm(Config.ARM_SPEED_DOWN));
 		armUp.whileHeld(new RotateArm(Config.ARM_SPEED_UP));
 		lowlowgear.whenPressed(new LowLowGear());
 		wristDown.whenPressed(new RotateWrist(Config.WRIST_SPEED_DOWN));
 		wristUp.whenPressed(new RotateWrist(Config.WRIST_SPEED_UP));
-
 		climberForward.whenPressed(new MoveClimberWheels(Config.CLIMBER_WHEEL_SPEED_FORWARD));
 		climberBackward.whenPressed(new MoveClimberWheels(Config.CLIMBER_WHEEL_SPEED_BACKWARD));
-		// climberWheelBackward.whileHeld(new MoveClimberWheels(Config.CLIMBER_WHEEL_SPEED_BACKWARD));
-		// climberWheelForward.whileHeld(new MoveClimberWheels(Config.CLIMBER_WHEEL_SPEED_FORWARD));
-		// travel.whenPressed(new Travel());
-
 		solenoidActivate.whenPressed(new ActivateSolenoid());
 		solenoidHatchActivate.whenPressed(new ActivateSolenoidHatch());
 		solenoidClimb.whenPressed(new ActivateSolenoidClimb());
-
 	}
 
 	/**
