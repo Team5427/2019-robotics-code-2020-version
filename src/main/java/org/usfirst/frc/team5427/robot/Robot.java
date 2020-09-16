@@ -225,6 +225,8 @@ public class Robot extends TimedRobot
      */
     public static UsbCamera cam2;
 
+    private static Encoder encoder;
+
     /**
      * Method run at the beginning of the robot program. All subsystem, camera, and sensor initialization should go here. 
      * 
@@ -322,6 +324,8 @@ public class Robot extends TimedRobot
         Shuffleboard.getTab("SmartDashboard").add("Cargo Cargo", new CargoShipCargo()).withWidget(BuiltInWidgets.kCommand);
         Shuffleboard.getTab("SmartDashboard").add("Cargo Floor", new CargoFloor()).withWidget(BuiltInWidgets.kCommand);
 
+        encoder = new Encoder(0, 1);
+
         //this should be initialized last in robotInit()
         oi = new OI();
     }
@@ -347,6 +351,7 @@ public class Robot extends TimedRobot
         SmartDashboard.putBoolean("Distance Hatch", ultra.getRangeInches() >= 11 && ultra.getRangeInches() <= 13);
         SmartDashboard.putBoolean("Distance Cargo Loading", ultra.getRangeInches() >= 19 && ultra.getRangeInches() <= 21);
         SmartDashboard.putBoolean("Distance Ship Shoot", ultra.getRangeInches() >= 23 && ultra.getRangeInches() <= 25);
+        SmartDashboard.putNumber("Encoder distance", encoder.getDistance());
     }
 
     /**
