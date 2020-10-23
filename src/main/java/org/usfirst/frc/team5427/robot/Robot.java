@@ -8,6 +8,7 @@
 package org.usfirst.frc.team5427.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.kauailabs.navx.frc.AHRS;
 
 import org.usfirst.frc.team5427.robot.commands.auto.MoveClimberLegAuto;
 
@@ -225,7 +226,11 @@ public class Robot extends TimedRobot
      */
     public static UsbCamera cam2;
 
-    private static Encoder encoder;
+    private static Encoder encoderLeft;
+
+    private static Encoder encoderRight;
+
+    private static AHRS ahrs;
 
     /**
      * Method run at the beginning of the robot program. All subsystem, camera, and sensor initialization should go here. 
@@ -324,7 +329,10 @@ public class Robot extends TimedRobot
         Shuffleboard.getTab("SmartDashboard").add("Cargo Cargo", new CargoShipCargo()).withWidget(BuiltInWidgets.kCommand);
         Shuffleboard.getTab("SmartDashboard").add("Cargo Floor", new CargoFloor()).withWidget(BuiltInWidgets.kCommand);
 
-        encoder = new Encoder(0, 1);
+        encoderLeft = new Encoder(1, 0);
+        encoderRight = new Encoder(7, 6);
+        ahrs = new AHRS(SPI.Port.kMXP);
+        ahrs.reset();
 
         //this should be initialized last in robotInit()
         oi = new OI();
@@ -351,7 +359,9 @@ public class Robot extends TimedRobot
         SmartDashboard.putBoolean("Distance Hatch", ultra.getRangeInches() >= 11 && ultra.getRangeInches() <= 13);
         SmartDashboard.putBoolean("Distance Cargo Loading", ultra.getRangeInches() >= 19 && ultra.getRangeInches() <= 21);
         SmartDashboard.putBoolean("Distance Ship Shoot", ultra.getRangeInches() >= 23 && ultra.getRangeInches() <= 25);
-        SmartDashboard.putNumber("Encoder distance", encoder.getDistance());
+        SmartDashboard.putNumber("Left Encoder distance", encoderLeft.getDistance());
+        SmartDashboard.putNumber("Right Encoder distance", encoderRight.getDistance());
+        SmartDashboard.putNumber("NavX", ahrs.getAngle());
     }
 
     /**
@@ -401,4 +411,6 @@ public class Robot extends TimedRobot
     {
         Scheduler.getInstance().run();
     }
+
+    public static AHRS getAHRS() {return ahrs;}
 }
