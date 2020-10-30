@@ -42,10 +42,20 @@ public class DriveTrain extends Subsystem {
 		lowlowgear = !lowlowgear;
 	}
 
-	public void tankDrive(double leftSpeed,double rightSpeed)
+	public void tankDrive(double leftSpeed, double rightSpeed)
 	{
 		driveRight.set(rightSpeed);
 		driveLeft.set(leftSpeed);
+	}
+
+	public void driveLeft(double speed)
+	{
+		driveLeft.set(speed);
+	}
+
+	public void driveRight(double speed)
+	{
+		driveRight.set(speed);
 	}
 
 	public void stop() {

@@ -373,7 +373,9 @@ public class Robot extends TimedRobot
     @Override
     public void autonomousInit()
     {
+        //i just lost the game
 
+        Robot.driveRight.set(0.7);
     }
 
     /**
@@ -386,6 +388,8 @@ public class Robot extends TimedRobot
     public void autonomousPeriodic()
     {
         Scheduler.getInstance().run();
+        Robot.driveTrain.tankDrive(0.3, 0);
+
     }
 
     /**
